@@ -2,6 +2,8 @@
 
 require '../genesis/autoload.php';
 
+$GLOBALS['site'] = api();
+
 $app = new Router;
 
 $app->get('/',                ['Main', 'home']);
@@ -17,7 +19,5 @@ $app->get('/competition',     ['Game', 'list']);
 
 $app->get('/ajax',            ['Ajax', 'get']);
 $app->post('/ajax',           ['Ajax', 'post']);
-
-// $app->server(function() { location('/'); });
 
 $app->server();
