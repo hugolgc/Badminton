@@ -1,0 +1,59 @@
+{{%FILTERS}}
+{{< base }}
+
+{{$ title }}Actualité • {{/ title }}
+
+{{$ navbar }}
+<div class="py-3 bg-white">
+  <ul class="container mx-auto px-4 flex space-x-8 text-gray-900 text-center font-light overflow-auto md:justify-center">
+
+    {{# categories }}
+    <li>
+      <a href="/articles&cat={{ id }}">{{ name }}</a>
+    </li>
+    {{/ categories }}
+
+  </ul>
+</div>
+{{/ navbar }}
+
+{{$ body }}
+<div class="py-4">
+  <div class="container mx-auto px-4">
+    <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+
+      {{# articles }}
+      <article>
+        <img src="{{ _embedded | showPicture }}" alt="Image {{ title.rendered }}" class="w-full rounded-t">
+        <a href="/articles/{{ id }}" class="block p-8 bg-white rounded-b">
+          <div class="flex">
+            <p class="px-4 py-2 bg-red-600 text-sm font-semibold rounded-full">{{ date | showDate }}</p>
+          </div>
+          <h3 class="my-4 bebas text-gray-800 text-4xl leading-none">{{ title.rendered }}</h3>
+          <p class="text-gray-700 font-light">{{ acf.content | resume }}</p>
+        </a>
+      </article>
+      {{/ articles }}
+
+    </div>
+    <ul class="grid grid-cols-1 gap-{{ gap }} pt-8 sm:grid-cols-2">
+      <li class="flex">
+
+        {{# id | check }}
+        <a href="/articles&id={{ id | page }}&cat={{ cat }}" class="block w-full sm:w-48 py-4 bg-white text-sm text-center text-red-600 font-semibold rounded">Page précédente</a>
+        {{/ id }}
+
+      </li>
+      <li class="flex justify-end">
+
+        {{# limit }}
+        <a href="/articles&id={{ limit }}&cat={{ cat }}" class="block w-full sm:w-48 py-4 bg-white text-sm text-center text-red-600 font-semibold rounded">Page suivante</a>
+        {{/ limit }}
+
+      </li>
+    </ul>
+  </div>
+</div>
+{{/ body }}
+
+{{/ base }}

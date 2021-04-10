@@ -1,0 +1,193 @@
+{{%FILTERS}}
+{{< base }}
+
+{{$ title }}Administratif • {{/ title }}
+
+{{$ navbar }}
+<div class="py-3 bg-white">
+  <ul class="container mx-auto px-4 flex space-x-8 text-gray-900 text-center font-light overflow-auto md:justify-center">
+    <li>
+      <a href="#1">Organigramme</a>
+    </li>
+    <li>
+      <a href="#2">Bureau</a>
+    </li>
+    <li>
+      <a href="#3">Conseil</a>
+    </li>
+    <li>
+      <a href="#4">Salariés</a>
+    </li>
+    <!-- <li>
+      <a href="#5">Remboursement</a>
+    </li> -->
+    <li>
+      <a href="#6">Documents</a>
+    </li>
+  </ul>
+</div>
+{{/ navbar }}
+
+{{$ body }}
+<section id="1" class="py-16 sm:py-32">
+  <div class="container mx-auto px-4">
+    <div class="flex items-center bg-white rounded">
+      <div class="p-8 sm:p-16 flex-auto text-gray-800 rounded-l">
+        <h2 class="mb-4 bebas text-6xl leading-none">{{ infos.acf.titre }}</h2>
+        <p class="font-light">{{{ infos.acf.description | space }}}</p>
+      </div>
+      <div class="h-96 w-96 flex-none bg-gray-700 rounded-r hidden xl:block" style="background: url('{{ infos.acf.image.url }}') center / cover"></div>
+    </div>
+  </div>
+</section>
+
+
+<div class="text-center">
+  <ion-icon name="chevron-down-outline" class="text-4xl text-gray-800"></ion-icon>
+</div>
+
+
+{{# office | check }}
+<section id="2" class="py-16 sm:py-32">
+  <div class="container mx-auto px-4">
+    <h2 class="mb-16 bebas text-gray-800 text-6xl text-center leading-none">Bureau de la Ligue</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+
+      {{# office }}
+      <div>
+        <div class="h-96 rounded" style="background: url('{{ _embedded | showPicture }}') center / cover"></div>
+        <h3 class="mt-6 mb-1 text-gray-800 text-2xl font-light leading-tight">{{ title.rendered }}</h3>
+        <p class="text-red-600">{{ acf.fonction }}</p>
+      </div>
+      {{/ office }}
+
+    </div>
+  </div>
+</section>
+{{/ office }}
+
+{{# directors | check }}
+<section id="3" class="py-32 bg-gray-100">
+  <div class="container mx-auto px-4">
+    <h2 class="mb-16 bebas text-gray-800 text-6xl text-center leading-none">Conseil d'administration</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+
+      {{# directors }}
+      <div>
+        <div class="h-96 rounded" style="background-image: url('{{ _embedded | showPicture }}')"></div>
+        <h3 class="mt-6 mb-1 text-gray-800 text-2xl font-light leading-tight">{{ title.rendered }}</h3>
+        <p class="text-red-600">{{ acf.fonction }}</p>
+      </div>
+      {{/ directors }}
+
+    </div>
+  </div>
+</section>
+{{/ directors }}
+
+{{# managers | check }}
+<section id="4" class="py-32 bg-gray-900">
+  <div class="container mx-auto px-4">
+    <h2 class="mb-16 bebas text-6xl text-center leading-none">Salariés de la Ligue</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+
+      {{# managers }}
+      <div>
+        <div class="h-96 rounded" style="background-image: url('{{ _embedded | showPicture }}')"></div>
+        <h3 class="mt-6 mb-1 text-2xl font-light leading-tight">{{ title.rendered }}</h3>
+        <p class="text-red-600">{{ acf.fonction }}</p>
+      </div>
+      {{/ managers }}
+
+    </div>
+  </div>
+</section>
+{{/ managers }}
+
+{{# refund }}
+<section id="5" class="py-32 bg-gray-900">
+  <div class="container mx-auto px-4">
+    <h2 class="mb-16 bebas text-6xl text-center leading-none">Remboursement de frais</h2>
+    <form id="refund" method="post" class="grid grid-cols-12 gap-8">
+      <input type="email" name="email" placeholder="Email" value="{{ email }}" maxlength="200" required class="col-span-12 md:col-span-6 h-12 px-4 rounded-full bg-gray-800 border-2 border-gray-700 font-light">
+      <input type="password" name="password" placeholder="Mot de passe" value="{{ password }}" maxlength="200" required class="col-span-12 md:col-span-6 h-12 px-4 rounded-full bg-gray-800 border-2 border-gray-700 font-light">
+      <input type="text" name="start" placeholder="Adresse de départ" value="{{ start }}" class="col-span-12 sm:col-span-6 xl:col-span-4 find-adress find-start h-12 px-4 rounded-full bg-gray-800 border-2 border-gray-700 font-light" maxlength="200" required>
+      <input type="text" name="end" placeholder="Adresse d'arrivée" value="{{ end }}" class="col-span-12 sm:col-span-6 xl:col-span-4 find-adress find-end h-12 px-4 rounded-full bg-gray-800 border-2 border-gray-700 font-light" maxlength="200" required>
+      <input type="text" name="moment" pattern="\d{2}/\d{2}/\d{4}" placeholder="Date : dd/mm/yyyy" value="{{ moment }}" class="col-span-6 xl:col-span-4 h-12 px-4 rounded-full bg-gray-800 border-2 border-gray-700 font-light" maxlength="10" required>
+      <div class="col-span-6 xl:col-span-4 flex space-x-8">
+        <input type="number" name="toll" placeholder="Péage" value="{{ toll }}" class="block h-12 w-full px-4 rounded-full bg-gray-800 border-2 border-gray-700 font-light" required>
+        <input type="text" name="distance" placeholder="Distance" value="{{ distance }}" class="find-distance block h-12 w-full px-4 rounded-full bg-gray-800 border-2 border-gray-700 font-light" readonly required>
+      </div>
+      <input type="text" name="comment" placeholder="Commentaire (facultatif)" value="{{ comment }}" class="col-span-12 xl:col-span-4 lg:col-span-6 block h-12 px-4 rounded-full bg-gray-800 border-2 border-gray-700 font-light" maxlength="200">
+      <div class="col-span-12 lg:col-span-6 xl:col-span-4 flex space-x-8">
+        <input type="number" name="restoration" placeholder="Restauration" value="{{ restoration }}" class="block w-full h-12 px-4 rounded-full bg-gray-800 border-2 border-gray-700 font-light" required>
+        <input type="number" name="commission" placeholder="Commission" value="{{ commission }}" class="block w-full h-12 px-4 rounded-full bg-gray-800 border-2 border-gray-700 font-light" required>
+        <button type="submit" class="flex-none h-12 w-12 bg-red-600 rounded-full">
+          <ion-icon name="paper-plane" class="pt-2 text-xl text-white"></ion-icon>
+        </button>
+      </div>
+    </form>
+    {{# success }}<p class="pt-8 text-green-500 text-center font-light animate-pulse">Votre demande a été enregistrée</p>{{/ success }}
+    {{# error }}<p class="pt-8 text-red-500 text-center font-light animate-pulse">{{ error }}</p>{{/ error }}
+  </div>
+</section>
+{{/ refund }}
+
+{{# files | check }}
+<section id="6" class="py-16 sm:py-32">
+  <div class="container mx-auto px-4 text-gray-800">
+    <input id="searchFile" type="text" placeholder="Trouver un document ici" class="block h-16 w-full mb-16 px-8 bg-gray-100 border-4 border-gray-300 text-2xl text-center font-medium rounded-xl">
+    <div id="searchWrapper" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-8">
+
+      {{# files }}
+      <a href="{{ acf.fichier.url }}" target="_blank" class="block p-4 bg-white rounded">
+        <p class="text-red-600">{{ _embedded | showCategorie }}</p>
+        <h3 class="text-2xl font-light leading-tight">{{ title.rendered }}</h3>
+      </a>
+      {{/ files }}
+      
+    </div>
+    <div id="searchWaiting" class="hidden">
+      <div class="mb-16 flex justify-center items-center">
+        <svg class="animate-spin h-24 w-24 text-gray-800" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+          <path class="opacity-1" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+{{/ files }}
+
+{{/ body }}
+
+{{$ scripts }}
+<script>
+
+input = $('#searchFile')
+wrapper = $('#searchWrapper')
+waiting = $('#searchWaiting')
+
+const update = (url) => {
+  wrapper.empty()
+  waiting.show()
+  $.get(url, files => {
+    waiting.hide()
+    files.forEach(file => {
+      wrapper.append(`<a href="${ file.acf.fichier.url }" target="_blank" class="block p-4 bg-white rounded">
+        <p class="text-red-600">${ file._embedded['wp:term'][0][0].name }</p>
+        <h3 class="text-2xl font-light leading-tight">${ file.title.rendered }</h3>
+      </a>`)
+    });
+  })
+}
+
+input.change(() => update(`${ BASE_URL }/wp/v2/documents?_embed&search=${ input.val() }`))
+input.keyup(() => {
+  if (input.val() === '') update(`${ BASE_URL }/wp/v2/documents?_embed&per_page=16`)
+})
+
+</script>
+{{/ scripts }}
+
+{{/ base }}

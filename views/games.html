@@ -1,0 +1,121 @@
+{{%FILTERS}}
+{{< base }}
+
+{{$ title }}Compétition • {{/ title }}
+
+{{$ navbar }}
+<div class="py-3 bg-white">
+  <ul class="container mx-auto px-4 flex space-x-8 text-gray-900 text-center font-light overflow-auto md:justify-center">
+    <li>
+      <a href="#1">Tournois</a>
+    </li>
+    <li>
+      <a href="#2">Interclub</a>
+    </li>
+  </ul>
+</div>
+{{/ navbar }}
+
+{{$ body }}
+<section id="1" class="py-16">
+  <div class="container mx-auto px-4">
+    <h2 class="mb-8 bebas text-gray-800 text-6xl leading-none">Tournois</h2>
+    <div class="overflow-auto">
+      <table class="table-auto w-full min-w-248">
+        <thead class="text-xl text-gray-800 border-b border-gray-400">
+          <tr>
+            <th class="px-4 py-2 font-medium">Date</th>
+            <th class="px-4 py-2 text-left font-medium">Nom</th>
+            <th class="px-4 py-2 font-medium">Club</th>
+            <th class="px-4 py-2 font-medium">Catégorie</th>
+            <th class="px-4 py-2 font-medium">Limite</th>
+            <th class="px-4 py-2 font-medium">Inscrits</th>
+          </tr>
+        </thead>
+        <tbody class="text-gray-600 font-light divide-y divide-gray-400">
+          <tr>
+            <td class="p-4 text-center">6 fev.</td>
+            <td class="p-4">Tournoi national des Gueules Noires</td>
+            <td class="p-4 text-center">BCHC</td>
+            <td class="p-4 text-center">Jeunes, Senior et Vétéran</td>
+            <td class="p-4 text-center">15 jan.</td>
+            <td class="p-4 text-center">436</td>
+          </tr>
+          <tr>
+            <td class="p-4 text-center">6 fev.</td>
+            <td class="p-4">Tournoi national des Gueules Noires</td>
+            <td class="p-4 text-center">BCHC</td>
+            <td class="p-4 text-center">Jeunes, Senior et Vétéran</td>
+            <td class="p-4 text-center">15 jan.</td>
+            <td class="p-4 text-center">436</td>
+          </tr>
+          <tr>
+            <td class="p-4 text-center">6 fev.</td>
+            <td class="p-4">Tournoi national des Gueules Noires</td>
+            <td class="p-4 text-center">BCHC</td>
+            <td class="p-4 text-center">Jeunes, Senior et Vétéran</td>
+            <td class="p-4 text-center">15 jan.</td>
+            <td class="p-4 text-center">436</td>
+          </tr>
+          <tr>
+            <td class="p-4 text-center">6 fev.</td>
+            <td class="p-4">Tournoi national des Gueules Noires</td>
+            <td class="p-4 text-center">BCHC</td>
+            <td class="p-4 text-center">Jeunes, Senior et Vétéran</td>
+            <td class="p-4 text-center">15 jan.</td>
+            <td class="p-4 text-center">436</td>
+          </tr>
+          <tr>
+            <td class="p-4 text-center">6 fev.</td>
+            <td class="p-4">Tournoi national des Gueules Noires</td>
+            <td class="p-4 text-center">BCHC</td>
+            <td class="p-4 text-center">Jeunes, Senior et Vétéran</td>
+            <td class="p-4 text-center">15 jan.</td>
+            <td class="p-4 text-center">436</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+
+{{# interclubs | check }}
+<section id="2" class="pt-16 pb-16 sm:pb-32">
+  <div class="container mx-auto px-4">
+    <h2 class="mb-8 bebas text-gray-800 text-6xl leading-none">Interclub</h2>
+    <div class="overflow-auto">
+      <table class="table-auto w-full min-w-248">
+        <thead class="text-xl text-gray-800 border-b border-gray-400">
+          <tr>
+            <th class="px-4 py-2 font-medium">Date</th>
+            <th class="px-4 py-2 text-left font-medium">Lieu</th>
+            <th class="px-4 py-2 text-left font-medium">Clubs</th>
+            <th class="px-4 py-2 font-medium">Journée</th>
+            <th class="px-4 py-2 font-medium">Classement</th>
+            <th class="px-4 py-2 font-medium">Convocation</th>
+          </tr>
+        </thead>
+        <tbody class="text-gray-600 font-light divide-y divide-gray-400">
+
+          {{# interclubs }}
+          <tr>
+            <td class="p-4 text-center">{{ moment | date }}</td>
+            <td class="p-4">{{ place }}</td>
+            <td class="p-4">{{ clubs }}</td>
+            <td class="p-4 text-center">{{ played }}</td>
+            <td class="p-4 text-center">{{ ranking }}</td>
+            <td class="p-4 text-center">Voir {{ id }}</td>
+          </tr>
+          {{/ interclubs }}
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+{{/ interclubs }}
+
+{{/ body }}
+
+{{/ base }}

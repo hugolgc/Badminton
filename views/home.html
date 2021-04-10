@@ -1,0 +1,225 @@
+{{%FILTERS}}
+{{< base }}
+
+{{$ body }}
+
+{{# lastest | check }}
+<div class="py-4">
+  <div class="container mx-auto px-4 flex items-stretch">
+    <article class="slide__figure relative flex-auto bg-gray-700 rounded overflow-hidden min-h-120 lg:rounded-r-none" style="background-image: url('{{ lastest_first._embedded | showPicture }}')">
+      <a href="/articles/{{ lastest_first.id }}" class="block absolute left-0 bottom-0 right-0 p-8">
+        <h2 class="max-w-xl bebas text-6xl leading-none">{{ lastest_first.title.rendered }}</h2>
+        <div class="flex mt-4">
+          <p class="px-4 py-2 bg-red-600 text-sm font-semibold rounded-full">{{ lastest_first.date | showDate }}</p>
+        </div>
+      </a>
+    </article>
+    <ul class="slide__articles w-96 flex-none rounded-r overflow-hidden hidden lg:block">
+
+      <li id="{{ lastest_first.id }}" class="bg-red-600 p-8 border-l-8 border-red-700">
+        <a href="/articles/{{ lastest_first.id }}">
+          <p class="mb-1 text-red-200 text-sm font-light">{{ lastest_first.date | showDate }}</p>
+          <h3 class="bebas text-4xl leading-none">{{ lastest_first.title.rendered }}</h3>
+        </a>
+      </li>
+
+      {{# lastest }}
+      <li id="{{ id }}" class="bg-gray-900 p-8 border-l-8 border-gray-800">
+        <a href="/articles/{{ id }}">
+          <p class="mb-1 text-gray-500 text-sm font-light">{{ date | showDate }}</p>
+          <h3 class="bebas text-4xl leading-none">{{ title.rendered }}</h3>
+        </a>
+      </li>
+      {{/ lastest }}
+
+    </ul>
+  </div>
+</div>
+{{/ lastest }}
+
+{{# populars | check }}
+<section class="py-4">
+  <div class="container mx-auto px-4 rounded">
+    <h2 class="p-4 bg-gray-900 bebas text-2xl tracking-wide leading-none border-l-8 border-red-600 rounded-t">Les plus populaires</h2>
+    <div class="grid grid-cols-1 gap-8 p-8 bg-white rounded-b sm:grid-cols-2 lg:grid-cols-3">
+
+      {{# populars }}
+      <article class="most__viewed">
+        <img src="{{ _embedded | showPicture }}" alt="Image {{ title.rendered }}" class="w-full mb-4 rounded">
+        <a href="/articles/{{ id }}" class="block pr-8">
+          <div class="flex">
+            <p class="px-4 py-2 bg-red-600 text-sm font-semibold rounded-full">{{ date | showDate }}</p>
+          </div>
+          <h3 class="my-4 bebas text-gray-800 text-4xl leading-none">{{ title.rendered }}</h3>
+          <p class="text-gray-700 font-light">{{ acf.content | resume }}</p>
+        </a>
+      </article>
+      {{/ populars }}
+
+    </div>
+  </div>
+</section>
+{{/ populars }}
+
+<div class="container mx-auto px-4 lg:flex lg:space-x-8">
+  <div class="flex-auto">
+
+    <section class="py-4">
+      <h2 class="p-4 bg-gray-900 bebas text-2xl tracking-wide leading-none border-l-8 border-red-600 rounded-t">Évènements à venir</h2>
+      <div id="events" class="p-8 space-y-8 bg-white rounded-b"></div>
+    </section>
+
+    <section class="py-4">
+      <h2 class="p-4 bg-gray-900 bebas text-2xl tracking-wide leading-none border-l-8 border-red-600 rounded-t">Gallerie</h2>
+      <div class="p-8 space-y-8 bg-white rounded-b">
+        <h3 class="text-gray-900">Facebook</h3>
+      </div>
+    </section>
+
+  </div>
+  <aside class="w__aside flex-none md:flex md:space-x-8 lg:block lg:space-x-0">
+
+
+    <section class="py-4 flex-1 lg:block">
+      <h2 class="p-4 bg-gray-900 bebas text-2xl tracking-wide leading-none border-l-8 border-red-600 rounded-t">Compétition</h2>
+      <div class="py-4 px-8 bg-white rounded-b">
+        <header class="py-4 flex space-x-8 bebas text-gray-800 text-2xl tracking-wide leading-none border-b-2 border-gray-400">
+          <h4 class="w-16 flex-none bebas text-2xl tracking-wide leading-none">Date</h4>
+          <h4 class="flex-auto">Tournoi</h4>
+        </header>
+        <div class="tounaments divide-y divide-gray-400">
+          <div class="py-4 flex space-x-8 text-gray-800 text-sm font-light">
+            <p class="w-16 flex-none">Samedi 31/12</p>
+            <h3 class="flex-auto">Tournoi nationale des Gueules Noires</h3>
+          </div>
+          <div class="py-4 flex space-x-8 text-gray-800 text-sm font-light">
+            <p class="w-16 flex-none">Samedi 31/12</p>
+            <p class="flex-auto">Tournoi nationale des Gueules Noires</p>
+          </div>
+          <div class="py-4 flex space-x-8 text-gray-800 text-sm font-light">
+            <p class="w-16 flex-none">Samedi 31/12</p>
+            <p class="flex-auto">Tournoi nationale des Gueules Noires</p>
+          </div>
+        </div>
+        <p class="py-4 text-center text-sm font-semibold">
+          <a href="/competition" class="block mr-auto px-4 py-2 bg-red-600 rounded-full">Voir les compétitions</a>
+        </p>
+      </div>
+    </section>
+
+    <section class="py-4 flex-1 lg:block">
+      <h2 class="p-4 bg-gray-900 bebas text-2xl tracking-wide leading-none border-l-8 border-red-600 rounded-t">Partenaires</h2>
+      <div id="sponsors" class="grid grid-cols-2 gap-8 p-8 bg-white rounded-b"></div>
+    </section>
+
+  </aside>
+</div>
+
+
+<section class="py-4">
+  <div class="container mx-auto px-4">
+    <h2 class="p-4 bg-gray-900 bebas text-2xl tracking-wide leading-none border-l-8 border-red-600 rounded-t">Trouver un club</h2>
+    <div id="club"></div>
+    <div id="wait" class="p-16 flex justify-center items-center bg-white rounded-b">
+      <svg class="animate-spin h-24 w-24 text-gray-800" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+        <path class="opacity-1" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+      </svg>
+    </div>
+    <form id="form" class="px-4 py-24 flex justify-center items-center bg-white rounded-b flex space-x-4">
+      <input type="text" placeholder="Votre ville" maxlength="200" required class="h-12 w-full px-4 rounded-full bg-gray-100 border-2 border-gray-200 font-light sm:w-64 outline-none text-gray-900">
+      <button type="submit" class="h-12 w-12 flex-none bg-red-600 rounded-full">
+        <ion-icon name="search" class="pt-2 text-xl text-white"></ion-icon>
+      </button>
+    </form>
+  </div>
+</section>
+
+<!-- <input type="text" placeholder="Trouver un club, votre ville ?" class="block h-16 w-full mb-16 px-8 bg-gray-100 border-4 border-gray-300 text-2xl text-center font-medium rounded-xl"> -->
+
+{{/ body }}
+
+{{$ scripts }}
+<script type="text/javascript" src="http://www.bing.com/api/maps/mapcontrol?callback=GetMap&key=Al6rpW-yeitozu0WQNk0Wzy0sfuIYGXcb6-IgtIfxAoeO6wNncqmUoM7GkHWEL_8"></script>
+<script>
+$(() => {
+
+  const addZero = (date) => {
+    return (date > 9) ? date : `0${ date }`
+  }
+
+  const init = (id) => {
+    $('.slide__articles li').attr('class', 'bg-gray-900 p-8 border-l-8 border-gray-800')
+    $('.slide__articles li p').attr('class', 'mb-1 text-gray-500 text-sm font-light')
+    $(`#${ id }`).attr('class', 'bg-red-600 p-8 border-l-8 border-red-700')
+    $(`#${ id } p`).attr('class', 'mb-1 text-red-200 text-sm font-light')
+  }
+
+  const display = (article) => {
+    $('.slide__figure').css('background-image', `url('${ article._embedded['wp:featuredmedia'][0].media_details.sizes.full.source_url }')`)
+    $('.slide__figure a').attr('href', `/articles/${ article.id }`)
+    $('.slide__figure h2').html(article.title.rendered)
+    var date_convertion = new Date(article.date);
+    $('.slide__figure p').html(`${ addZero(date_convertion.getDate()) } ${ addZero(date_convertion.getMonth() + 1) } ${ date_convertion.getFullYear() }`)
+  }
+
+  const articles = {{{ dynamic | json }}}; var i = 0
+
+  setInterval(() => {
+    (i > articles.length - 2) ? i = 0 : i++
+    display(articles[i])
+    init(articles[i].id)
+  }, 5 * 1000)
+
+  const eventFormat = (event) => {
+    var date_convertion = new Date(event.acf.date);
+    let start = '<article class="block items-center next__events sm:flex sm:space-x-8">'
+    let picture = (event._embedded) ? `<img src="${ event._embedded['wp:featuredmedia'][0].media_details.sizes.full.source_url }" alt="Image ${ event.title.rendered }" class="w-full mb-4 flex-none rounded sm:w-56 sm:mb-0">` : ''
+    let end = `<div class="sm:pr-8 flex-auto">
+        <div class="flex">
+          <p class="px-4 py-2 bg-red-600 text-sm font-semibold rounded-full">${ addZero(date_convertion.getDate()) } ${ addZero(date_convertion.getMonth() + 1) } ${ date_convertion.getFullYear() }</p>
+        </div>
+        <h3 class="my-4 bebas text-gray-800 text-4xl leading-none">${ event.title.rendered }</h3>
+        <p class="text-gray-700 font-light">${ event.acf.resume }</p>
+      </div>
+    </article>`
+
+    return `${ start }${ picture }${ end }`
+  }
+
+  const sponsorFormat = (sponsor) => { return `<img src="${ sponsor._embedded['wp:featuredmedia'][0].media_details.sizes.full.source_url }" alt="${ sponsor.title.rendered }">` }
+
+  $.get(`${ BASE_URL }/wp/v2/event?_embed&per_page=3`, (events) => events.map((event) => $('#events').append(eventFormat(event))))
+
+  $.get(`${ BASE_URL }/wp/v2/sponsor?_embed`, (sponsors) => sponsors.map((sponsor) => $('#sponsors').append(sponsorFormat(sponsor))))
+
+})
+
+
+const letsMap = ([latitude, longitude]) => {
+  
+  $('#wait').remove()
+  $('#club').attr('class', 'h-75 bg-white rounded-b z-10 overflow-hidden')
+
+  let map = L.map('club').setView([longitude, latitude], 10)
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map)
+
+}
+
+$('#wait').hide()
+
+$('#form').submit((e) => {
+
+  e.preventDefault()
+  let search = $('#form input').val()
+  $('#form').remove()
+  $('#wait').show()
+
+  $.get(`https://api-adresse.data.gouv.fr/search/?limit=1&q=${ search },france`, data => letsMap(data.features[0].geometry.coordinates))
+  
+})
+
+</script>
+{{/ scripts }}
+
+{{/ base }}

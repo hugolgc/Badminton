@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <title>{{$ title }}{{/ title }}{{ _globals.site.name }}</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="{{ _globals.site.description }}">
+    <meta name="keywords" content="">
+    <meta name="author" content="@hugolgc (github)">
+    <meta name="theme-color" content="#ffffff">
+    <meta name="generator" content="Genesis (v2)">
+    <link rel="icon" href="/assets/src/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap">
+    <link rel="stylesheet" href="/assets/css/tailwind.css">
+    <link rel="stylesheet" href="/assets/css/master.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin=""/>
+  </head>
+  <body class="min-h-screen bg-gray-200 text-white">
+
+
+    <h1 class="hidden">{{$ title }}{{/ title }}{{ _globals.site.name }}</h1>
+
+
+    <header class="sticky top-0 z-100 mb-2 border-b-8 border-gray-200">
+      <div class="py-2 bg-gray-900">
+        <nav role="navigation" aria-label="navigation principale" class="relative container mx-auto px-4 flex justify-between items-center">
+          <a href="/" class="block h-16">
+            <img src="/assets/src/logo.png" alt="Logo Ligue Badminton Hauts-de-France" class="h-full">
+          </a>
+          <div role="menu" class="absolute top-18 right-0 left-0 py-4 items-center bg-gray-900 border-navbar md:static md:flex md:border-none sm:rounded-b-lg">
+            <ul aria-label="menu" class="w-full p-4 text-center items-center text-2xl font-light md:w-auto md:p-0 md:flex md:text-base space-y-8 md:space-y-0">
+              <li class="px-4">
+                <a href="/articles">Actualité</a>
+              </li>
+              <li class="px-4">
+                <a href="https://calendar.google.com/calendar/u/0/embed?src=ert4uj69ea2qfh5cm8admagi00@group.calendar.google.com&ctz=Europe/Paris" target="_blank">Calendrier</a>
+              </li>
+              <li class="px-4">
+                <a href="/competition">Compétition</a>
+              </li>
+              <li class="px-4">
+                <a href="/administratif">Administratif</a>
+              </li>
+              <li class="px-4">
+                <a href="/contact">Contact</a>
+              </li>
+              <li class="px-4 md:hidden">
+                <a href="">Facebook</a>
+              </li>
+            </ul>
+            <form action="/articles" method="post" class="px-4 hidden xl:block">
+              <input type="text" name="search" placeholder="Trouver un article" value="{{ search }}" maxlength="255" required class="h-12 w-full px-4 bg-gray-800 border-2 border-gray-700 font-light rounded-lg xl:w-64 xl:rounded-full">
+            </form>
+            <a href="" target="_blank" class="hidden lg:block xl:ml-0">
+              <div class="h-12 w-12 ml-4 bg-blue-600 rounded-full flex justify-center items-center">
+                <img src="/assets/src/facebook.png" alt="Facebook {{ _globals.site.name }}" class="facebook">
+              </div>
+            </a>
+          </div>
+          <button id="burger" class="h-12 ml-4 bg-gray-900 md:hidden">
+            <ion-icon name="reorder-three-outline" class="text-5xl"></ion-icon>
+          </button>
+        </nav>
+      </div>
+      {{$ navbar }}{{/ navbar }}
+    </header>
+
+
+    <!-- <div class="py-2 text-center text-2xl bg-green-500 sm:bg-red-500 md:bg-yellow-500 lg:bg-blue-500 xl:bg-purple-500">
+      <span class="block sm:hidden md:hidden lg:hidden xl:hidden">XS</span>
+      <span class="hidden sm:block md:hidden lg:hidden xl:hidden">SM</span>
+      <span class="hidden sm:hidden md:block lg:hidden xl:hidden">MD</span>
+      <span class="hidden sm:hidden md:hidden lg:block xl:hidden">LG</span>
+      <span class="hidden sm:hidden md:hidden lg:hidden xl:block">XL</span>
+    </div> -->
+
+
+    {{$ body }}{{/ body }}
+
+
+    {{$ footer }}
+    <section class="py-4">
+      <div class="container mx-auto px-4">
+        <div class="block px-8 py-16 items-center space-y-8 bg-white text-gray-700 rounded lg:flex lg:space-x-16 lg:space-y-0">
+          <h2 class="max-w-xl bebas text-gray-800 text-6xl leading-none">Newsletter</h2>
+          <p class="font-light">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form.</p>
+          <form id="newsletter" method="post" class="flex space-x-4">
+            <input type="email" name="newsletter__email" placeholder="Email" maxlength="200" required class="h-12 w-full px-4 rounded-full bg-gray-100 border-2 border-gray-200 font-light lg:w-64">
+            <button type="submit" class="h-12 w-12 flex-none bg-red-600 rounded-full">
+              <ion-icon name="paper-plane" class="pt-2 text-xl text-white"></ion-icon>
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+    {{/ footer }}
+
+
+    <footer class="mt-4 py-8 bg-gray-900 border-t-8 border-red-600">
+      <div class="container mx-auto px-4 justify-between lg:flex">
+        <ul class="grid grid-cols-2 gap-4 font-light sm:flex sm:space-x-8 sm:space-y-0 lg:mb-0">
+          <li>
+            <a href="/">Accueil</a>
+          </li>
+          <li>
+            <a href="/articles">Actualité</a>
+          </li>
+          <li>
+            <a href="https://calendar.google.com/calendar/u/0/embed?src=ert4uj69ea2qfh5cm8admagi00@group.calendar.google.com&ctz=Europe/Paris" target="_blank">Calendrier</a>
+          </li>
+          <li>
+            <a href="/competition">Compétition</a>
+          </li>
+          <li>
+            <a href="/administratif">Administratif</a>
+          </li>
+          <li>
+            <a href="/contact">Contact</a>
+          </li>
+        </ul>
+        <div class="lg:flex lg:space-x-8 my-8 lg:my-0">
+          <a href="/api/wp-admin" class="font-light hidden lg:block">Espace membre</a>
+          <a href="https://www.linkedin.com/in/hugolgc/" target="_blank" class="block text-gray-500 font-light">Créé par @hugolgc</a>
+        </div>
+      </div>
+    </footer>
+
+
+    <script src="/assets/js/jquery.js" charset="utf-8"></script>
+    <script src="/assets/js/app.js" charset="utf-8"></script>
+    <script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons/ionicons.esm.js" type="module" defer></script>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
+    <script>
+      const BASE_URL = 'http://badminton.lan/api/wp-json'
+    </script>
+    {{$ scripts }}{{/ scripts }}
+
+  </body>
+</html>

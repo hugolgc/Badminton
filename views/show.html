@@ -1,0 +1,103 @@
+{{%FILTERS}}
+{{< base }}
+
+{{$ title }}{{ article.title.rendered }} • {{/ title }}
+
+{{$ body }}
+<div class="container mx-auto px-4 lg:flex lg:space-x-8">
+  <main class="flex-auto">
+
+    {{# article }}
+    <article class="py-4">
+      <img src="{{ _embedded | showPicture }}" alt="Image {{ title.rendered }}" class="w-full flex-none rounded-t">
+      <div class="p-8 bg-white rounded-b">
+        <div class="flex">
+          <p class="px-4 py-2 bg-red-600 text-sm font-semibold rounded-full">{{ date | showDate }}</p>
+        </div>
+        <h2 class="mt-4 mb-8 bebas text-gray-800 text-6xl leading-none">{{ title.rendered }}</h2>
+        <p class="text-gray-700 font-light">{{{ acf.content }}}</p>
+        <ul class="mt-8 flex justify-end space-x-4">
+          <li>
+            <a href="#" class="block w-12 h-12 bg-blue-400 rounded-full"></a>
+          </li>
+          <li>
+            <a href="#" class="block w-12 h-12 bg-blue-400 rounded-full"></a>
+          </li>
+          <li>
+            <a href="#" class="block w-12 h-12 bg-blue-400 rounded-full"></a>
+          </li>
+        </ul>
+      </div>
+    </article>
+    {{/ article }}
+
+
+    <div class="grid grid-cols-2 gap-8 py-4">
+      <div>
+        {{# previous }}
+        <a href="/articles/{{ id }}" class="block w-full px-8 py-6 bg-white rounded space-y-2">
+          <p class="text-red-600 text-sm font-semibold">Article précédent</p>
+          <h3 class="bebas text-gray-800 text-2xl tracking-wide leading-none">{{ title }}</h3>
+        </a>
+        {{/ previous }}
+      </div>
+      <div>
+        {{# next }}
+        <a href="/articles/{{ id }}" class="block w-full px-8 py-6 bg-white text-right rounded space-y-2">
+          <p class="text-red-600 text-sm font-semibold">Article suivant</p>
+          <h3 class="bebas text-gray-800 text-2xl tracking-wide leading-none">{{ title }}</h3>
+        </a>
+        {{/ next }}
+      </div>
+    </div>
+
+
+  </main>
+  <aside class="w__aside flex-none md:flex md:space-x-8 lg:block lg:space-x-0">
+
+
+    {{# lastest | check }}
+    <section class="py-4 flex-1 lg:block">
+      <h2 class="p-4 bg-gray-900 bebas text-2xl tracking-wide leading-none border-l-8 border-red-600 rounded-t">Nos derniers articles</h2>
+      <div class="px-8 py-4 bg-white rounded-b">
+        <div class="divide-y divide-gray-200">
+
+          {{# lastest }}
+          <a href="/articles/{{ id }}" class="block py-4 flex items-center space-x-6">
+            <img class="w-24 flex-none rounded" src="{{ _embedded | showPicture }}" alt="Image {{ title.rendered }}">
+            <div class="flex-auto">
+              <h3 class="text-gray-800 font-bold leading-tight mb-1">{{ title.rendered }}</h3>
+              <p class="text-red-600 text-xs font-semibold">{{ date | showDate }}</p>
+            </div>
+          </a>
+          {{/ lastest }}
+
+        </div>
+      </div>
+    </section>
+    {{/ lastest }}
+
+
+    <section class="py-4 flex-1 lg:block">
+      <h2 class="p-4 bg-gray-900 bebas text-2xl tracking-wide leading-none border-l-8 border-red-600 rounded-t">Partenaires</h2>
+      <div id="sponsors" class="grid grid-cols-2 gap-8 p-8 bg-white rounded-b"></div>
+    </section>
+
+
+  </aside>
+</div>
+{{/ body }}
+
+{{$ scripts }}
+<script type="text/javascript">
+$(() => {
+
+  const sponsorFormat = (sponsor) => { return `<img src="${ sponsor._embedded['wp:featuredmedia'][0].media_details.sizes.full.source_url }" alt="${ sponsor.title.rendered }">` }
+
+  $.get(`${ BASE_URL }/wp/v2/sponsor?_embed`, (sponsors) => sponsors.map((sponsor) => $('#sponsors').append(sponsorFormat(sponsor))))
+
+})
+</script>
+{{/ scripts }}
+
+{{/ base }}
