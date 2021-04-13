@@ -12,7 +12,7 @@ $app->post('/administratif',  ['Main', 'refund']);
 $app->get('/contact',         ['Main', 'contact']);
 
 $app->get('/articles',        ['Post', 'list']);
-$app->post('/articles',       ['Post', 'search']);
+$app->post('/articles',       ['Post', 'list']);
 $app->get('/articles/:id',    ['Post', 'show']);
 
 $app->get('/competition',     ['Game', 'list']);

@@ -11,14 +11,27 @@ class Post extends View
 
   public function list()
   {
-    $ask = '/wp/v2/news?_embed';
-    if (!empty($_GET['cat'])) $ask .= '&categories=' . $_GET['cat'];
+    $per_page = 12;
+    $url = '/articles';
+    $base = '/wp/v2/news?_embed';
 
-    $posts = api($ask);
+    $page = (!empty($_GET['page']) && $_GET['page'] > 0) ? $_GET['page'] : 0;
+    if (!empty($_POST['search'])) $base .= '&search=' . secure($_POST['search']);
+    elseif (!empty($_GET['cat']))
+    {
+      $url .= '&cat=' . $_GET['cat'];
+      $base .= '&categories=' . $_GET['cat'];
+    }
+
+    $base .= '&offset=' . ($page * $per_page);
+    $pagination = $base . '&per_page=' . ($per_page + 1);
+    $base .= "&per_page=$per_page";
+    
+    $posts = api($base);
     if (count($posts) === 0) location('/');
+
     $all_categories = api('/wp/v2/categories');
     $categories = [];
-
     foreach ($all_categories as $categorie)
     {
       if ($categorie->parent == 7) $categories[] = $categorie;
@@ -26,13 +39,11 @@ class Post extends View
 
     $this->render('list', [
       'articles' => $posts,
-      'categories' => $categories
+      'categories' => $categories,
+      'search' => $_POST['search'] ?? false,
+      'previous' => ($page > 0) ? $url . '&page=' . ($page - 1) : false,
+      'next' => (count(api($pagination)) === ($per_page + 1)) ? $url . '&page=' . ($page + 1) : false
     ]);
-  }
-
-  public function search()
-  {
-    $this->send('search');
   }
 
   public function show($id)
