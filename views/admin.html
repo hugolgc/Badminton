@@ -18,9 +18,9 @@
     <li>
       <a href="#4">Salariés</a>
     </li>
-    <!-- <li>
+    <li>
       <a href="#5">Remboursement</a>
-    </li> -->
+    </li>
     <li>
       <a href="#6">Documents</a>
     </li>
@@ -104,7 +104,7 @@
 </section>
 {{/ managers }}
 
-{{# refund }}
+{{! {{# refund }}
 <section id="5" class="py-32 bg-gray-900">
   <div class="container mx-auto px-4">
     <h2 class="mb-16 bebas text-6xl text-center leading-none">Remboursement de frais</h2>
@@ -131,11 +131,22 @@
     {{# error }}<p class="pt-8 text-red-500 text-center font-light animate-pulse">{{ error }}</p>{{/ error }}
   </div>
 </section>
-{{/ refund }}
+{{! {{/ refund }}
 
 {{# files | check }}
 <section id="6" class="py-16 sm:py-32">
   <div class="container mx-auto px-4 text-gray-800">
+
+    {{# categories | check }}
+    <div class="flex flex-wrap justify-center mb-4">
+      
+      {{# categories }}
+      <p data-category="{{ id }}" class="category px-4 py-2 mx-4 my-2 bg-red-600 text-sm text-white font-semibold rounded cursor-pointer">{{ name }}</p>
+      {{/ categories }}
+
+    </div>
+    {{/ categories }}
+
     <input id="searchFile" type="text" placeholder="Trouver un document ici" class="block h-16 w-full mb-16 px-8 bg-gray-100 border-4 border-gray-300 text-2xl text-center font-medium rounded-xl">
     <div id="searchWrapper" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-8">
 
@@ -164,9 +175,10 @@
 {{$ scripts }}
 <script>
 
-input = $('#searchFile')
-wrapper = $('#searchWrapper')
-waiting = $('#searchWaiting')
+const input = $('#searchFile')
+const wrapper = $('#searchWrapper')
+const waiting = $('#searchWaiting')
+const categories = $('.category')
 
 const update = (url) => {
   wrapper.empty()
@@ -185,6 +197,10 @@ const update = (url) => {
 input.change(() => update(`${ BASE_URL }/wp/v2/documents?_embed&search=${ input.val() }`))
 input.keyup(() => {
   if (input.val() === '') update(`${ BASE_URL }/wp/v2/documents?_embed&per_page=16`)
+})
+
+categories.click(function() {
+  update(`${ BASE_URL }/wp/v2/documents?_embed&categories=${ $(this).attr('data-category') }`)
 })
 
 </script>

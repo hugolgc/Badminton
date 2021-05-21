@@ -36,22 +36,30 @@ class Main extends View
     $offices = api('/wp/v2/member?_embed&categories=9');
     $directors = api('/wp/v2/member?_embed&categories=10');
     $managers = api('/wp/v2/member?_embed&categories=11');
-
+    
     $infos = api('/wp/v2/content/95');
     $files = api('/wp/v2/documents?_embed&per_page=16');
+    
+    $categories = [];
+    foreach (api('/wp/v2/categories') as $category)
+      if ($category->parent === 12) $categories[] = $category;
 
     $this->render('admin', [
       'office' => $offices,
       'directors' => $directors,
       'managers' => $managers,
       'files' => $files,
-      'infos' => $infos
+      'infos' => $infos,
+      'categories' => $categories,
+      'success' => !empty($_GET['success']),
+      'error' => !empty($_GET['error'])
     ]);
   }
 
   public function refund()
   {
-    $this->send('refund');
+
+    // location('/administratif#5?refund=1');
   }
 
   public function contact()

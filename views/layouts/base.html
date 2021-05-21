@@ -23,6 +23,7 @@
 
 
     <header class="sticky top-0 z-100 mb-2 border-b-8 border-gray-200">
+      <a id="logout" href="{{ _globals.logout }}" class="hidden block p-2 border-b-2 border-gray-700 bg-gray-800 text-center text-white font-light">Se déconnecter</a>
       <div class="py-2 bg-gray-900">
         <nav role="navigation" aria-label="navigation principale" class="relative container mx-auto px-4 flex justify-between items-center">
           <a href="/" class="block h-16">
@@ -34,7 +35,7 @@
                 <a href="/articles">Actualité</a>
               </li>
               <li class="px-4">
-                <a href="https://www.dropbox.com/s/nugg6aidds4rqvj/CALENDRIER%20LIGUE%20HDF%20SAISON%202020-21%20matrice.xlsx?dl=0" target="_blank">Calendrier</a>
+                <a href="{{ _globals.calendar }}" target="_blank">Calendrier</a>
               </li>
               <li class="px-4">
                 <a href="/competition">Compétition</a>
@@ -123,6 +124,11 @@
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
     <script>
       const BASE_URL = 'http://badminton.lan/api/wp-json'
+      $(() => {
+        $.get('{{ _globals.admin }}', (data) => {
+          if (data.includes('<title>Tableau de bord')) $('#logout').toggleClass('hidden')
+        })
+      })
     </script>
     {{$ scripts }}{{/ scripts }}
 
