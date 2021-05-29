@@ -36,7 +36,7 @@
         <h2 class="mb-4 bebas text-6xl leading-none">{{ infos.acf.titre }}</h2>
         <p class="font-light">{{{ infos.acf.description | space }}}</p>
       </div>
-      <div class="h-96 w-96 flex-none bg-gray-700 rounded-r hidden xl:block" style="background: url('{{ infos.acf.image.url }}') center / cover"></div>
+      <div class="h-96 w-96 flex-none bg-gray-700 rounded-r hidden xl:block" style="background: url('{{ infos.acf.image.url }}') center / cover;"></div>
     </div>
   </div>
 </section>
@@ -55,7 +55,7 @@
 
       {{# office }}
       <div>
-        <div class="h-96 rounded" style="background: url('{{ _embedded | showPicture }}') center / cover"></div>
+        <div class="h-96 rounded" style="background: url('{{ _embedded | showPicture }}') center / cover;"></div>
         <h3 class="mt-6 mb-1 text-gray-800 text-2xl font-light leading-tight">{{ title.rendered }}</h3>
         <p class="text-red-600">{{ acf.fonction }}</p>
       </div>
@@ -74,7 +74,7 @@
 
       {{# directors }}
       <div>
-        <div class="h-96 rounded" style="background-image: url('{{ _embedded | showPicture }}')"></div>
+        <div class="h-96 rounded" style="background: url('{{ _embedded | showPicture }}') center / cover;"></div>
         <h3 class="mt-6 mb-1 text-gray-800 text-2xl font-light leading-tight">{{ title.rendered }}</h3>
         <p class="text-red-600">{{ acf.fonction }}</p>
       </div>
@@ -93,7 +93,7 @@
 
       {{# managers }}
       <div>
-        <div class="h-96 rounded" style="background-image: url('{{ _embedded | showPicture }}')"></div>
+        <div class="h-96 rounded" style="background: url('{{ _embedded | showPicture }}') center / cover;"></div>
         <h3 class="mt-6 mb-1 text-2xl font-light leading-tight">{{ title.rendered }}</h3>
         <p class="text-red-600">{{ acf.fonction }}</p>
       </div>
@@ -104,34 +104,43 @@
 </section>
 {{/ managers }}
 
-{{! {{# refund }}
 <section id="5" class="py-32 bg-gray-900">
   <div class="container mx-auto px-4">
     <h2 class="mb-16 bebas text-6xl text-center leading-none">Remboursement de frais</h2>
-    <form id="refund" method="post" class="grid grid-cols-12 gap-8">
-      <input type="email" name="email" placeholder="Email" value="{{ email }}" maxlength="200" required class="col-span-12 md:col-span-6 h-12 px-4 rounded-full bg-gray-800 border-2 border-gray-700 font-light">
-      <input type="password" name="password" placeholder="Mot de passe" value="{{ password }}" maxlength="200" required class="col-span-12 md:col-span-6 h-12 px-4 rounded-full bg-gray-800 border-2 border-gray-700 font-light">
-      <input type="text" name="start" placeholder="Adresse de départ" value="{{ start }}" class="col-span-12 sm:col-span-6 xl:col-span-4 find-adress find-start h-12 px-4 rounded-full bg-gray-800 border-2 border-gray-700 font-light" maxlength="200" required>
-      <input type="text" name="end" placeholder="Adresse d'arrivée" value="{{ end }}" class="col-span-12 sm:col-span-6 xl:col-span-4 find-adress find-end h-12 px-4 rounded-full bg-gray-800 border-2 border-gray-700 font-light" maxlength="200" required>
-      <input type="text" name="moment" pattern="\d{2}/\d{2}/\d{4}" placeholder="Date : dd/mm/yyyy" value="{{ moment }}" class="col-span-6 xl:col-span-4 h-12 px-4 rounded-full bg-gray-800 border-2 border-gray-700 font-light" maxlength="10" required>
+    <form id="refund" method="post" class="grid grid-cols-12 gap-8" enctype="multipart/form-data">
+      <input type="email" name="email" placeholder="Email" value="{{ email }}" class="col-span-12 md:col-span-6 h-12 px-4 rounded-full bg-gray-800 border-2 border-gray-700 font-light" maxlength="200" required>
+      <input type="text" name="comment" placeholder="Commentaire (facultatif)" value="{{ comment }}" class="col-span-12 md:col-span-6 h-12 px-4 rounded-full bg-gray-800 border-2 border-gray-700 font-light" maxlength="200">
+      <input id="start" type="text" name="start" placeholder="Adresse de départ" value="{{ start }}" class="adress__input col-span-12 sm:col-span-6 xl:col-span-4 find-adress find-start h-12 px-4 rounded-full bg-gray-800 border-2 border-gray-700 font-light" maxlength="200" required>
+      <input id="end" type="text" name="end" placeholder="Adresse d'arrivée" value="{{ end }}" class="adress__input col-span-12 sm:col-span-6 xl:col-span-4 find-adress find-end h-12 px-4 rounded-full bg-gray-800 border-2 border-gray-700 font-light" maxlength="200" required>
+      <input id="moment" type="text" name="moment" pattern="\d{2}/\d{2}/\d{4}" placeholder="Date : dd/mm/yyyy" value="{{ moment }}" class="col-span-6 xl:col-span-4 h-12 px-4 rounded-full bg-gray-800 border-2 border-gray-700 font-light" maxlength="10" required>
       <div class="col-span-6 xl:col-span-4 flex space-x-8">
-        <input type="number" name="toll" placeholder="Péage" value="{{ toll }}" class="block h-12 w-full px-4 rounded-full bg-gray-800 border-2 border-gray-700 font-light" required>
-        <input type="text" name="distance" placeholder="Distance" value="{{ distance }}" class="find-distance block h-12 w-full px-4 rounded-full bg-gray-800 border-2 border-gray-700 font-light" readonly required>
+        <input id="distance" data-value="{{# distance }}{{ . }}{{/ distance }}{{^ distance }}0{{/ distance }}" type="text" name="distance" placeholder="Distance" value="{{# distance }}{{ . }}{{/ distance }}{{^ distance }}0{{/ distance }}" class="find-distance block h-12 w-full px-4 rounded-full bg-gray-800 border-2 border-gray-700 font-light" readonly required>
+        <input type="number" name="toll" placeholder="Péage" value="{{ toll }}" class="block h-12 w-full px-4 rounded-full bg-gray-800 border-2 border-gray-700 font-light" min="0" step="any" required>
       </div>
-      <input type="text" name="comment" placeholder="Commentaire (facultatif)" value="{{ comment }}" class="col-span-12 xl:col-span-4 lg:col-span-6 block h-12 px-4 rounded-full bg-gray-800 border-2 border-gray-700 font-light" maxlength="200">
       <div class="col-span-12 lg:col-span-6 xl:col-span-4 flex space-x-8">
-        <input type="number" name="restoration" placeholder="Restauration" value="{{ restoration }}" class="block w-full h-12 px-4 rounded-full bg-gray-800 border-2 border-gray-700 font-light" required>
-        <input type="number" name="commission" placeholder="Commission" value="{{ commission }}" class="block w-full h-12 px-4 rounded-full bg-gray-800 border-2 border-gray-700 font-light" required>
+        <div data-distance="1" class="option__distance flex items-center justify-center cursor-pointer h-12 flex-1 rounded-full bg-gray-800 border-2 border-red-600 font-light">Aller Simple</div>
+        <div data-distance="2" class="option__distance flex items-center justify-center cursor-pointer h-12 flex-1 rounded-full bg-gray-800 border-2 border-gray-700 font-light">Aller-Retour</div>
+        <div id="justificatif" class="flex items-center justify-center cursor-pointer h-12 flex-1 rounded-full bg-gray-800 border-2 border-gray-700 font-light space-x-1">
+          <ion-icon name="add-outline" class="add text-xl"></ion-icon>
+          <ion-icon name="checkmark-outline" class="upload text-xl hidden"></ion-icon>
+          <span>Justificatif</span>
+        </div>
+      </div>
+      <div class="col-span-12 lg:col-span-6 xl:col-span-4 flex space-x-8">
+        <input type="number" name="restoration" placeholder="Restauration" value="{{ restoration }}" class="block w-full h-12 px-4 rounded-full bg-gray-800 border-2 border-gray-700 font-light" min="0" step="any" required>
+        <input type="number" name="commission" placeholder="Commission" value="{{ commission }}" class="block w-full h-12 px-4 rounded-full bg-gray-800 border-2 border-gray-700 font-light" min="0" step="any" required>
         <button type="submit" class="flex-none h-12 w-12 bg-red-600 rounded-full">
           <ion-icon name="paper-plane" class="pt-2 text-xl text-white"></ion-icon>
         </button>
       </div>
+      <input type="hidden" name="to" value="{{ infos.acf.refund }}">
+      <input id="input_justificatif" type="file" name="upload" class="hidden">
     </form>
-    {{# success }}<p class="pt-8 text-green-500 text-center font-light animate-pulse">Votre demande a été enregistrée</p>{{/ success }}
-    {{# error }}<p class="pt-8 text-red-500 text-center font-light animate-pulse">{{ error }}</p>{{/ error }}
+    {{# success }}<p class="pt-8 text-green-500 text-center font-light animate-pulse">Votre demande nous a été reçue</p>{{/ success }}
+    {{# error }}<p class="pt-8 text-red-500 text-center font-light animate-pulse">Une erreur est survenue</p>{{/ error }}
+    <p id="error-date" class="hidden pt-8 text-red-500 text-center font-light animate-pulse">La date ne peut pas être au futur</p>
   </div>
 </section>
-{{! {{/ refund }}
 
 {{# files | check }}
 <section id="6" class="py-16 sm:py-32">
@@ -179,6 +188,8 @@ const input = $('#searchFile')
 const wrapper = $('#searchWrapper')
 const waiting = $('#searchWaiting')
 const categories = $('.category')
+const form = $('#refund')
+const apiKey = 'AuwRyvC7F--Go6TIV2qGWM03KZ8Uosd_6pSQw00fHFno997qCQOJeYBt0rZ-xz5f'
 
 const update = (url) => {
   wrapper.empty()
@@ -201,6 +212,56 @@ input.keyup(() => {
 
 categories.click(function() {
   update(`${ BASE_URL }/wp/v2/documents?_embed&categories=${ $(this).attr('data-category') }`)
+})
+
+let confirmForm = true;
+
+const checkDate = (moment) => {
+  if (moment.val() != '') {
+    let infosDate = moment.val().split('/')
+    let refundDate = new Date(infosDate[2], infosDate[1] - 1, infosDate[0])
+    
+    if (infosDate.length === 3) {
+      if (Date.now() < refundDate) {
+        $('#error-date').removeClass('hidden')
+        confirmForm = false
+      } else {
+        $('#error-date').addClass('hidden')
+        confirmForm = true
+      }
+    } else confirmForm = false
+  }
+}
+
+$('.option__distance').click(function() {
+  $('.option__distance').attr('class', 'option__distance flex items-center justify-center cursor-pointer h-12 flex-1 rounded-full bg-gray-800 border-2 border-gray-700 font-light')
+  $(this).attr('class', 'option__distance flex items-center justify-center cursor-pointer h-12 flex-1 rounded-full bg-gray-800 border-2 border-red-600 font-light')
+  $('#distance').val($('#distance').attr('data-value') * $(this).attr('data-distance'))
+})
+
+$('.adress__input').keyup(() => {
+  if ($('#start').val() != '' && $('#end').val() != '') {
+    $.get(`http://dev.virtualearth.net/REST/V1/Routes/Driving?wp.0=${ $('#start').val() }&wp.1=${ $('#end').val() }&key=${ apiKey }`, (data) => {
+      if (data.resourceSets[0].resources[0].travelDistance) {
+        $('#distance').attr('data-value', data.resourceSets[0].resources[0].travelDistance)
+        $('#distance').val($('.option__distance.border-red-600').attr('data-distance') * $('#distance').attr('data-value'))
+      }
+    })
+  }
+})
+
+$('#moment').keyup(function() { checkDate($(this)) })
+
+$('#justificatif').click(() => $('#input_justificatif').click())
+
+$('#input_justificatif').change(() => {
+  $('#justificatif .add').addClass('hidden')
+  $('#justificatif .upload').removeClass('hidden')
+  $('#justificatif span').text('Ajouté')
+})
+
+form.submit((e) => {
+  if (!confirmForm) e.preventDefault()
 })
 
 </script>

@@ -58,8 +58,35 @@ class Main extends View
 
   public function refund()
   {
+    $to = secure($_POST['to']);
+    $email = secure($_POST['email']);
+    $comment = secure($_POST['comment']);
+    $start = secure($_POST['start']);
+    $end = secure($_POST['end']);
+    $moment = secure($_POST['moment']);
+    $distance = secure($_POST['distance']);
+    $toll = secure($_POST['toll']);
+    $restoration = secure($_POST['restoration']);
+    $commission = secure($_POST['commission']);
 
-    // location('/administratif#5?refund=1');
+    $subject = 'Demande de remboursement | LHDF';
+    $message = "\n Email : $email";
+    $message .= "\n Date : $moment";
+    $message .= "\n Départ : $start";
+    $message .= "\n Arrivée : $end";
+    $message .= "\n Distance : $distance km";
+    $message .= "\n Péage : $toll";
+    $message .= "\n Restauration : $restoration";
+    $message .= "\n Commission : $commission";
+    $message .= ($comment != '') ? "\n Commentaire : $comment" : '';
+
+    if (!empty($_FILES))
+    {
+      $upload = new Upload($_FILES['upload'], true, 10, null, '../public/assets/refund/');
+      if (empty($upload->getReport())) $message .= "\n Justificatif : " . $GLOBALS['domain'] . '/assets/refund/' . $upload->getName();
+    }
+
+    location((mail($to, $subject, $message)) ? '/administratif&success=1#5' : '/administratif&error=1#5');
   }
 
   public function contact()

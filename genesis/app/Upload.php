@@ -14,7 +14,7 @@ class Upload
   private $size;
   private $tmp_name;
 
-  public function __construct($file, bool $rename = TRUE, float $limit = 2, array $extensions = array('jpg', 'jpeg', 'png'), string $target = '../public/assets/src/')
+  public function __construct($file, bool $rename = TRUE, float $limit = 2, ?array $extensions = array('jpg', 'jpeg', 'png'), string $target = '../public/assets/src/')
   {
     $this->file = $file;
     $this->limit = floatval($limit) * 1000000;
@@ -37,7 +37,7 @@ class Upload
 
   private function check()
   {
-    return (getimagesize($this->tmp_name)) ? TRUE : FALSE;
+    return (filesize($this->tmp_name)) ? TRUE : FALSE;
   }
 
   private function size()
@@ -48,7 +48,8 @@ class Upload
   private function extension()
   {
     $extension = pathinfo($this->name, PATHINFO_EXTENSION);
-    return (in_array($extension, $this->extensions)) ? $extension : FALSE;
+    if ($this->extensions === NULL) return $extension;
+    else return (in_array($extension, $this->extensions)) ? $extension : FALSE;
   }
 
   private function generate()

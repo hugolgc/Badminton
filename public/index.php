@@ -2,10 +2,10 @@
 
 require '../genesis/autoload.php';
 
-$domain = $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['SERVER_NAME'];
-$GLOBALS['logout'] = "$domain/api/wp-login.php?action=logout";
+$GLOBALS['domain'] = $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['SERVER_NAME'];
+$GLOBALS['logout'] = $GLOBALS['domain'] . '/api/wp-login.php?action=logout';
 $GLOBALS['calendar'] = api('/wp/v2/content/95')->acf->lien;
-$GLOBALS['admin'] = "$domain/api/wp-admin/";
+$GLOBALS['admin'] = $GLOBALS['domain'] . '/api/wp-admin/';
 $GLOBALS['site'] = api();
 
 $app = new Router;
